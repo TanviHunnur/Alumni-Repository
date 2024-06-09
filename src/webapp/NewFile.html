@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Page</title>
+<style>
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    background-color: black; /* Set background color for select */
+    color: white; /* Set text color for select */
+}
+select option {
+    background-color: black; /* Set background color for options */
+    color: white; /* Set text color for options */
+}
+body, html {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    padding: 0;
+    background-size: cover;
+}
+.container {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    height: 100%;
+}
+.left-panel {
+    background-color: #1D2228;
+    padding: 20px;
+    color: white;
+    cursor: pointer;
+    overflow: hidden;
+}
+.left-panel img {
+    width: 100%;
+    transition: transform 0.3s;
+}
+.left-panel ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+.left-panel ul li {
+    padding: 10px;
+}
+.left-panel ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    transition: background-color 0.3s;
+}
+.left-panel ul li a:hover {
+    background-color: #2D3238;
+}
+.right-panel 
+{
+    padding: 20px;
+    background-image: url("searchback.jpg");
+    background-color: #E1E2E2;
+    color: white;
+    background-size: cover; /* Ensure background image covers the entire background */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+}
+.search-box {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: black;
+}
+
+input[type="text"],
+    input[type="email"],
+    input[type="file"],
+    select,
+    input[type="date"],
+    input[type="password"] {
+        width: 20%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin-right: 20px;
+    }
+
+.button {
+    padding: 10px 20px;
+    background-color: rgb(255, 128, 0);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #0056b3;
+}
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th {
+        border: 1px solid white;
+        padding: 8px;
+        color: white;
+    }
+
+    td {
+        border: 1px solid white;
+        padding: 8px;
+        color: white;
+        cursor: pointer;
+    }
+
+    th {
+        background-color: black;
+    }
+
+    #editFormContainer {
+    width: 80%;
+    padding: 20px;
+    background-color: #333;
+    margin: 0 auto; /* Center align horizontally */
+}
+
+    .editForm {
+        margin-bottom: 20px;
+    }
+    
+    #editFormContainer1 {
+    width: 80%;
+    padding: 20px;
+    background-color: #333;
+    margin: 0 auto; /* Center align horizontally */
+}
+
+    .editForm1 {
+        margin-bottom: 20px;
+    }
+    
+    #editFormContainer2 {
+    width: 80%;
+    padding: 20px;
+    background-color: #333;
+    margin: 0 auto; /* Center align horizontally */
+}
+
+    .editForm2 {
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="left-panel">
+    <img src="dktelogo.jpg" alt="Mountain"><br><br>
+    <h2>Dashboard</h2>
+      <ul>
+        <li><a href="#" onclick="displayContent('profile-list')">Profile</a></li>
+        <li><a href="#" onclick="displayContent('alumni-list')">Alumni List</a></li>
+        <li><a href="Home.html">Logout</a></li>
+      </ul>
+  </div>
+  <div class="right-panel" id="content-container">
+    <!-- Default content -->
+    <div id="default-content">
+      <h2 style="color:white">Welcome to the Repository and Search Engine for Alumni of D.K.T.E College</h2>
+    </div>
+    
+    
+    <!-- Alumni List -->
+    <div id="alumni-list-content" style="display:none;">
+      <h2 style="color:white">Repository for Alumni</h2>
+      <form action="alumni-search-form">
+        <!-- Action updated to AlumniListServlet -->
+        <select id="dropdown1">
+          <option value="" disabled selected>Select Department</option>
+          <option value="Computer Science Engineering">Computer Science Engineering</option>
+          <option value="Computer Science Engineering(AIML)">Computer Science Engineering(AIML)</option>
+          <option value="Computer Science Engineering(AIDS)">Computer Science Engineering(AIDS)</option>
+          <option value="Electronics Engineering">Electronics Engineering</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+        </select>
+        <select id="dropdown2">
+          <option value="" disabled selected>Select Batch</option>
+          <option value="2017-2018">2017-2018</option>
+          <option value="2018-2019">2018-2019</option>
+          <option value="2019-2020">2019-2020</option>
+          <option value="2020-2021">2020-2021</option>
+          <option value="2021-2022">2021-2022</option>
+        </select>
+        <input type="text" id="alumni-search-input" placeholder="Search by Name" class="search-box">
+    	<button type="button" onclick="searchAlumni()" class="button">Search</button>
+  	      </form>
+      <div id="alumni-list-placeholder"></div>
+      <!-- Placeholder for alumni list table -->
+    </div>
+    
+    <div id="profile-list-content" style="display:none;">
+      <h2 style="color:white">Repository for Profile</h2>
+      <div id="profile-list-placeholder"></div>
+      <!-- Placeholder for profile list content -->
+    </div>
+    
+  </div>
+			
+            
+</div>
+  
+<script>
+function displayContent(panelId) 
+{
+    var contentContainers = document.querySelectorAll('.right-panel > div');
+    contentContainers.forEach(function(container) {
+        container.style.display = 'none';
+    });
+
+    var selectedContainer;
+    if (panelId === 'default-content') 
+    {
+        selectedContainer = document.getElementById(panelId);
+    } 
+    else if(panelId === 'alumni-list') 
+    {
+        selectedContainer = document.getElementById(panelId + '-content');
+        // Reset dropdown values
+        var dropdowns = selectedContainer.querySelectorAll('select');
+        dropdowns.forEach(function(dropdown) {
+            dropdown.selectedIndex = 0;
+        });
+        // Hide search elements initially
+        var searchBox = selectedContainer.querySelector('.search-box');
+        var button = selectedContainer.querySelector('.button');
+        searchBox.style.display = 'none';
+        button.style.display = 'none';
+
+        if (panelId === 'alumni-list') 
+        {
+            searchBox.style.display = "block";
+            button.style.display = "block";
+            loadAlumniList();
+        }
+        
+    }
+    else if(panelId === 'profile-list')
+    {
+        selectedContainer = document.getElementById(panelId + '-content');
+
+        if (panelId === 'profile-list') 
+        {
+            loadProfileList();
+        }
+        
+    }
+    
+
+    selectedContainer.style.display = 'block';
+}
+
+window.onload = function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var action = urlParams.get('action');
+    var hash = window.location.hash;
+
+    if (hash === '#profile-list-content') 
+    {
+        displayContent('profile-list');
+    } 
+    else if (hash === '#alumni-list-content') 
+    {
+        displayContent('alumni-list');
+    } else {
+        displayContent('default-content');
+    }
+}
+
+
+window.onload = function() 
+{
+    var urlParams = new URLSearchParams(window.location.search);
+    var action = urlParams.get('action');
+    var hash = window.location.hash;
+
+    if (hash === '#profile-content') 
+    {
+        displayContent('profile');
+    } 
+    else if (hash === '#alumni-list-content') 
+    {
+        displayContent('alumni-list');
+    }
+    else 
+    {
+        displayContent('default-content');
+    }
+}
+	
+
+
+function loadAlumniList() {
+    fetch('alumniSearch?listType=alumni') // Updated to call AlumniListServlet
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('alumni-list-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error fetching Alumni List:', error));
+}
+
+function loadProfileList() {
+    fetch('alumniSearch?listType=student') // Updated to call AlumniListServlet
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('profile-list-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error fetching profile :', error));
+}
+
+
+
+function searchAlumni() {
+	  var department = document.getElementById('dropdown1').value;
+	  var batch = document.getElementById('dropdown2').value;
+	  var searchQuery = document.getElementById('alumni-search-input').value;
+
+	  var url = `AlumniListServlet?listType=alumni&department=${encodeURIComponent(department)}&batch=${encodeURIComponent(batch)}&searchQuery=${encodeURIComponent(searchQuery)}`;
+	  fetch(url)
+	    .then(response => response.text())
+	    .then(data => {
+	      document.getElementById('alumni-list-placeholder').innerHTML = data;
+	    })
+	    .catch(error => console.error('Error fetching Alumni List:', error));
+	}
+
+	
+
+
+
+</script>
+</body>
+</html>

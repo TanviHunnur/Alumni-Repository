@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 25% 75%;
+            height: 100%;
+        }
+        .left-pane {
+            background-color: #D48166;
+            padding: 20px;
+        }
+        .right-pane {
+            background-color: #373A36;
+            padding: 20px;
+        }
+        .login-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .login-button:hover {
+    background-color: #0056b3;
+  }
+  .button-container {
+       text-align: right;
+  }
+
+        
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-pane">
+            <img src="dktelogo.jpg" alt="Mountain" style="width:300px"><br>
+            <p style="color:white">DKTE’S Textile & Engineering Institute, Ichalkaranji (Top Autonomous Engineering College In Maharashtra), established in 1982, as one of the first private Engineering Institutes in Maharashtra, DKTE reflects the vision of leading industrialists and educationalists. The vast exposure and experience of it’s founders has helped DKTE to establish it’s identity as an Institute of repute in the field of Textile & Engineering College in Maharashtra. The Autonomous Engineering Institute has been awarded “A+” grade by NAAC with 3.53 CGPA in recognition of its overall academic excellence and infrastructure. Also all the eligible UG programmes have been accredited by NBA, New Delhi.</p><br><br>
+            
+            <script>
+function redirectToLoginPage() {
+  // Redirect to the login page
+  window.location.href = "loginsam.html";
+}
+function aboutus() {
+ window.location.href="https://dkte.ac.in/";
+}
+</script>
+
+        </div>
+        
+
+        <div class="right-pane">
+            <div class="button-container"><h2 style="color:white" align="center">DKTE Society's Textile and Engineering Institute, Ichalkaranji</h2>
+<button class="login-button" onclick="aboutus()">About us</button>
+            <button class="login-button" onclick="redirectToLoginPage()">Login</button></div><br>
+            <img src="DKTE.jpg" alt="Description of the image" width="1100" height="600">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bulk Upload Form</title>
+</head>
+<body>
+    <h1>Bulk Upload Faculty Form</h1>
+    <form action="BulkUploadAlumniServlet" method="post" enctype="multipart/form-data">
+        <label for="csv-file2">Select CSV File:</label>
+        <input type="file" id="csv-file2" name="csv-file2" accept=".csv" required><br><br>
+        <input type="submit" value="Upload">
+    </form>
+    <!-- <h1>Bulk Upload Student Form</h1>
+    <form action="BulkUploadStudentServlet" method="post" enctype="multipart/form-data">
+        <label for="csv-file1">Select CSV File:</label>
+        <input type="file" id="csv-file1" name="csv-file1" accept=".csv" required><br><br>
+        <input type="submit" value="Upload">
+    </form>-->
+</body>
+</html>

@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Page</title>
+<style>
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    background-color: white; /* Set background color for select */
+    color: black; /* Set text color for select */
+}
+select option {
+    background-color: white; /* Set background color for options */
+    color: black; /* Set text color for options */
+}
+body, html {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    padding: 0;
+    background-size: cover;
+}
+.container {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    height: 100%;
+}
+.left-panel {
+    background-color: #1D2228;
+    padding: 20px;
+    color: white;
+    cursor: pointer;
+    overflow: hidden;
+}
+.left-panel img {
+    width: 100%;
+    transition: transform 0.3s;
+}
+.left-panel ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+.left-panel ul li {
+    padding: 10px;
+}
+.left-panel ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    transition: background-color 0.3s;
+}
+.left-panel ul li a:hover {
+    background-color: #2D3238;
+}
+.right-panel 
+{
+    padding: 20px;
+    background-image: url("10.avif");
+    background-color: #E1E2E2;
+    color: black;
+    background-size: cover; /* Ensure background image covers the entire background */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+}
+.search-box {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: black;
+}
+
+input[type="text"],
+    input[type="email"],
+    input[type="file"],
+    select,
+    input[type="date"],
+    input[type="password"] {
+        width: 20%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin-right: 20px;
+    }
+
+.button {
+    padding: 10px 20px;
+    background-color:black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #0056b3;
+}
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th {
+        border: 1px solid white;
+        padding: 8px;
+        color: white;
+    }
+
+    td {
+        border: 1px solid white;
+        padding: 8px;
+        color: white;
+        cursor: pointer;
+    }
+
+    th {
+        background-color: black;
+    }
+
+    #editFormContainer {
+    width: 80%;
+    padding: 20px;
+    background-color:white;
+    margin: 0 auto; /* Center align horizontally */
+}
+
+    .editForm {
+        margin-bottom: 20px;
+    }
+    
+    #editFormContainer1 {
+    width: 80%;
+    padding: 20px;
+    background-color: white;
+    margin: 0 auto; /* Center align horizontally */
+}
+
+    .editForm1 {
+        margin-bottom: 20px;
+    }
+    
+    #editFormContainer2 {
+    width: 80%;
+    padding: 20px;
+    background-color: white;
+    display: inline-block;
+}
+
+    .editForm2 {
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="left-panel">
+    <img src="dktelogo.jpg" alt="Mountain"><br><br>
+    <h2>Dashboard</h2>
+    <ul>
+      <li>Lists
+        <ul>
+          <li><a href="#" onclick="displayContent('student-list')">Student List</a></li>
+          <li><a href="#" onclick="displayContent('alumni-list')">Alumni List</a></li>
+          <li><a href="#" onclick="displayContent('faculty-list')">Faculty List</a></li>
+        </ul>
+      </li>
+      <li>Add Details
+        <ul>
+          <li><a href="#" onclick="displayContent('add-student')">Add Student</a></li>
+          <li><a href="#" onclick="displayContent('add-alumni')">Add Alumni</a></li>
+          <li><a href="#" onclick="displayContent('add-faculty')">Add Faculty</a></li>
+        </ul>
+      </li>
+      <li><a href="#" onclick="displayContent('bulk-upload')">Bulk Upload</a></li>
+      <li><a href="Home.html">Logout</a></li>
+    </ul>
+  </div>
+  <div class="right-panel" id="content-container">
+    <!-- Default content -->
+    <div id="default-content">
+      <h2 style="color:black; font-size: 45px;">Welcome to the Repository and Search Engine for Alumni of D.K.T.E College</h2>
+      <p style="font-family: Arial, sans-serif; font-size: 20px; color: black; line-height: 1.5;">
+    Alumni engagement is the process of building and maintaining meaningful relationships between educational<br>
+    institutions and their former students, also known as alumni.<br>
+    Universities need engaged alumni to help contribute to the institution’s reputation,
+    fundraising potential, networking opportunities, and support for academic and strategic goals.<br>
+    Alumni engagement is not just about organizing events or sending newsletters – 
+    it is about fostering long-term partnerships with graduates, offering value to alumni, 
+    and involving them in activities that advance the institution’s mission.
+	</p>
+    </div>
+    
+    <div id="bulk-upload-content" style="display:none;">
+    <h1>Bulk Upload Student Form</h1>
+	<form id="uploadForm" enctype="multipart/form-data">
+    <label for="csv-file1">Select CSV File:</label>
+	<input type="file" id="csv-file1" name="csv-file1" accept=".csv" class="editForm" style="width: 250px;"><br><br>
+    <input type="button" class="button" value="Student Upload" onclick="bulkUpload()">
+	</form>
+	<h1>Bulk Upload Alumni Form</h1>
+	<form id="uploadForm2" enctype="multipart/form-data">
+    <label for="csv-file2">Select CSV File:</label>
+	<input type="file" id="csv-file2" name="csv-file2" accept=".csv" class="editForm" style="width: 250px;"><br><br>
+    <input type="button" class="button" value="Alumni Upload" onclick="bulkUpload2()">
+	</form>
+	<h1>Bulk Upload Faculty Form</h1>
+	<form id="uploadForm1" enctype="multipart/form-data">
+    <label for="csv-file">Select CSV File:</label>
+    <input type="file" id="csv-file" name="csv-file" accept=".csv" class="editForm" style="width: 250px;"><br><br>
+    <input type="button" class="button" value="Faculty Upload" onclick="bulkUpload1()">
+	</form>
+	</div>
+    
+    <!-- Student List -->
+	<div id="student-list-content" style="display:none;">
+  	<h2 style="color:black">Repository for Students</h2>
+  	<form id="student-search-form">
+    <select id="dropdown1">
+      <option value="" disabled selected>Select Department</option>
+      <option value="Computer Science Engineering">Computer Science Engineering</option>
+      <option value="Computer Science Engineering(AIML)">Computer Science Engineering(AIML)</option>
+      <option value="Computer Science Engineering(AIDS)">Computer Science Engineering(AIDS)</option>
+      <option value="Electronics Engineering">Electronics Engineering</option>
+      <option value="Mechanical Engineering">Mechanical Engineering</option>
+      <option value="Civil Engineering">Civil Engineering</option>
+    </select>
+    <select id="dropdown2">
+      <option value="" disabled selected>Select Batch</option>
+      <option value="2022-2023">2022-2023</option>
+      <option value="2023-2024">2023-2024</option>
+      <option value="2024-2025">2024-2025</option>
+      <option value="2025-2026">2025-2026</option>
+      <option value="2026-2027">2026-2027</option>
+    </select>
+    <input type="text" id="student-search-input" placeholder="Search by Name" class="search-box">
+    <button type="button" onclick="searchStudents()" class="button">Search</button>
+  	</form>
+  
+  	<div id="student-list-placeholder"></div>
+  	<!-- Placeholder for student list table -->
+	</div>
+    
+    <!-- Alumni List -->
+    <div id="alumni-list-content" style="display:none;">
+      <h2 style="color:black">Repository for Alumni</h2>
+      <form action="alumni-search-form">
+        <!-- Action updated to AlumniListServlet -->
+        <select id="dropdown1">
+          <option value="" disabled selected>Select Department</option>
+          <option value="Computer Science Engineering">Computer Science Engineering</option>
+          <option value="Computer Science Engineering(AIML)">Computer Science Engineering(AIML)</option>
+          <option value="Computer Science Engineering(AIDS)">Computer Science Engineering(AIDS)</option>
+          <option value="Electronics Engineering">Electronics Engineering</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+        </select>
+        <select id="dropdown2">
+          <option value="" disabled selected>Select Batch</option>
+          <option value="2017-2018">2017-2018</option>
+          <option value="2018-2019">2018-2019</option>
+          <option value="2019-2020">2019-2020</option>
+          <option value="2020-2021">2020-2021</option>
+          <option value="2021-2022">2021-2022</option>
+        </select>
+        <input type="text" id="alumni-search-input" placeholder="Search by Name" class="search-box">
+    	<button type="button" onclick="searchAlumni()" class="button">Search</button>
+  	      </form>
+      <div id="alumni-list-placeholder"></div>
+      <!-- Placeholder for alumni list table -->
+    </div>
+    
+    
+    <!-- Faculty List -->
+	<div id="faculty-list-content" style="display:none;">
+  	<h2 style="color:black">Repository for Faculty</h2>
+  	<form id="faculty-search-form">
+    	<input type="text" id="faculty-search-input" placeholder="Search by Name" class="search-box">
+    	<button type="button" onclick="searchFaculty()" class="button">Search</button>
+  	</form>
+ 	 <div id="faculty-list-placeholder"></div>
+  	<!-- Placeholder for faculty list table -->
+	</div>
+
+    
+    <div id="add-student-content" style="display:none;">
+      <h2 style="color:black">Add Student</h2>
+      <form action="AddStudentServlet" method="post" enctype="multipart/form-data">
+        <h3>Personal Information</h3>
+        <label for="profile-pic">Profile Picture:</label>
+        <input type="file" id="profile-pic" name="profile-pic" accept="image/*" required><br><br>
+
+        <label for="first-name">First Name:</label>
+		<input type="text" id="first-name" name="first-name" required >
+		
+		<label for="middle-name">Middle Name:</label>
+		<input type="text" id="middle-name" name="middle-name" required >
+
+		<label for="last-name">Last Name:</label>
+		<input type="text" id="last-name" name="last-name" required><br><br>
+
+        <label for="email">Email ID:</label>
+        <input type="email" id="email" name="email" required style="width: 30%;">
+        
+        <label for="contact-no">Contact Number:</label>
+    	<input type="text" id="contact-no" name="contact-no" required pattern="[0-9]{10}" maxlength="10"><br><br>
+
+    	<label for="dob">Date of Birth:</label>
+    	<input type="date" id="dob" name="dob" required>
+
+    	<label for="state">State:</label>
+    	<select id="state" name="state">
+      	<!-- Options for states -->
+      	<option value="" disabled selected>Select State</option>
+      	<option value="Maharastra">Maharastra</option>
+      	<option value="Karnataka">Karnataka</option>
+      	<!-- Add more states as needed -->
+    	</select>
+
+    	<label for="city">City:</label>
+    	<select id="city" name="city">
+    	<option value="" disabled selected>Select City</option>
+      	<!-- Options for cities -->
+      	<option value="Sangli">Sangli</option>
+      	<option value="Ichalkaranji">Ichalkaranji</option>
+		<option value="Kolhapur">Kolhapur</option>
+		<option value="Satara">Satara</option> 
+		<option value="Pune">Pune</option>
+		<option value="Hubli">Hubli</option>
+		<option value="Bengalore">Bengalore</option>     	
+      	      	<!-- Add more cities as needed -->
+    	</select><br><br>
+
+    	<label for="passout-year">Passout Year:</label>
+    	<select id="passout-year" name="passout-year">
+    	<option value="" disabled selected>Select Year</option>
+      	<!-- Options for passout years -->
+      	<option value="2022-2023">2022-2023</option>
+      	<option value="2023-2024">2023-2024</option>
+      	<option value="2024-2025">2024-2025</option>
+      	<option value="2025-2026">2025-2026</option>  	
+      	<!-- Add more years as needed -->
+    	</select>
+
+    	<label for="department" >Department:</label>
+    	<select id="department" name="department" >
+    	<option value="" disabled selected>Select Department</option>
+      	<!-- Options for departments -->
+          <option value="Computer Science Engineering">Computer Science Engineering</option>
+          <option value="Computer Science Engineering(AIML)">Computer Science Engineering(AIML)</option>
+          <option value="Computer Science Engineering(AIDS)">Computer Science Engineering(AIDS)</option>
+          <option value="Electronics Engineering">Electronics Engineering</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+      	<!-- Add more departments as needed -->
+    	</select><br><br>
+
+    	<!-- Links -->
+    	<h3>Extra Information</h3>
+    	<label for="linkedin-profile">LinkedIn Profile:</label>
+    	<input type="text" id="linkedin-profile" name="linkedin-profile">
+
+    	<!-- Backend -->
+
+    	<label for="pwd">Password:</label>
+    	<input type="password" id="pwd" name="pwd" required><br><br>
+    
+        <!-- Other fields can be added as needed -->
+
+        <button type="submit" class="button">Add Student</button>
+      </form>
+    </div>
+    
+    
+    <div id="add-alumni-content" style="display:none;">
+  <h2 style="color:black">Add Alumni</h2>
+  <form action="AddAlumniServlet" method="post" enctype="multipart/form-data">
+    <!-- Profile Picture -->
+    <h3>Personal Details</h3>
+    <label for="profile-pic">Profile Picture:</label>
+    <input type="file" id="profile-pic" name="profile-pic" accept="image/*" required><br><br>
+ 
+    <!-- Personal Information -->
+    <label for="first-name">First Name:</label>
+    <input type="text" id="first-name" name="first-name" required>
+
+    <label for="middle-name">Middle Name:</label>
+    <input type="text" id="middle-name" name="middle-name" required>
+
+    <label for="last-name">Last Name:</label>
+    <input type="text" id="last-name" name="last-name" required><br><br>
+
+    <label for="email">Email ID:</label>
+    <input type="email" id="email" name="email" required style="width: 30%;margin-right: 70px; ">
+
+    <label for="contact-no">Contact Number:</label>
+    <input type="text" id="contact-no" name="contact-no" required pattern="[0-9]{10}" maxlength="10"><br><br>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" required>
+
+    <label for="state">State:</label>
+    <select id="state" name="state">
+      <!-- Options for states -->
+      <option value="" disabled selected>Select State</option>
+      <option value="Maharastra">Maharastra</option>
+      <option value="Karnataka">Karnataka</option>
+      <!-- Add more states as needed -->
+    </select>
+
+    <label for="city">City:</label>
+    <select id="city" name="city">
+    	<option value="" disabled selected>Select City</option>
+      <!-- Options for cities -->
+      	<option value="Sangli">Sangli</option>
+      	<option value="Ichalkaranji">Ichalkaranji</option>
+		<option value="Kolhapur">Kolhapur</option>
+		<option value="Satara">Satara</option> 
+		<option value="Pune">Pune</option>
+		<option value="Hubli">Hubli</option>
+		<option value="Bengalore">Bengalore</option>
+      <!-- Add more cities as needed -->
+    </select><br><br>
+
+    <label for="passout-year">Passout Year:</label>
+    <select id="passout-year" name="passout-year">
+    <option value="" disabled selected>Select Year</option>
+      <!-- Options for passout years -->
+      <option value="2018-2019">2018-2019</option>
+      <option value="2019-2020">2019-2020</option>
+   	  <option value="2020-2021">2020-2021</option>
+      <option value="2021-2022">2021-2022</option>
+      <!-- Add more years as needed -->
+    </select>
+
+    <label for="department" >Department:</label>
+    <select id="department" name="department" >
+      <!-- Options for departments -->
+      <option value="" disabled selected>Select Department</option>
+      <option value="Computer Science Engineering">Computer Science Engineering</option>
+          <option value="Computer Science Engineering(AIML)">Computer Science Engineering(AIML)</option>
+          <option value="Computer Science Engineering(AIDS)">Computer Science Engineering(AIDS)</option>
+          <option value="Electronics Engineering">Electronics Engineering</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+      <!-- Add more departments as needed -->
+    </select><br><br>
+
+    <!-- Current Status -->
+    <h3>Current Working Information</h3>
+    <label for="current-working-field">Current Working Field:</label>
+    <input type="text" id="current-working-field" name="current-working-field">
+
+    <label for="breif">Brief:</label>
+    <textarea id="breif1" name="breif" rows="4"></textarea><br><br>
+
+    <!-- Links -->
+    <h3>Extra Information</h3>
+    <label for="linkedin-profile">LinkedIn Profile:</label>
+    <input type="text" id="linkedin-profile" name="linkedin-profile">
+
+    <!-- Resumes -->
+    <label for="resume1">Resume 1:</label>
+    <input type="file" id="resume1" name="resume1" accept="application/pdf" required>
+
+    <label for="resume2">Resume 2:</label>
+    <input type="file" id="resume2" name="resume2" accept="application/pdf" required><br><br>
+
+    <!-- Backend -->
+
+    <label for="pwd">Password:</label>
+    <input type="password" id="pwd" name="pwd" required><br><br>
+
+    <button type="submit" class="button">Add Alumni</button>
+  </form>
+</div>
+
+<div id="add-faculty-content" style="display:none;">
+      <h2 style="color:black">Add Faculty</h2>
+      <form action="AddFacultyServlet" method="post" enctype="multipart/form-data">
+        <h3>Personal Information</h3>
+        <label for="profile-pic">Profile Picture:</label>
+        <input type="file" id="profile-pic" name="profile-pic" accept="image/*" required><br><br>
+
+        <label for="first-name">First Name:</label>
+		<input type="text" id="first-name" name="first-name" required >
+		
+		<label for="middle-name">Middle Name:</label>
+		<input type="text" id="middle-name" name="middle-name" required >
+
+		<label for="last-name">Last Name:</label>
+		<input type="text" id="last-name" name="last-name" required><br><br>
+
+        <label for="email">Email ID:</label>
+        <input type="email" id="email" name="email" required style="width: 30%;">
+        
+        <label for="contact-no">Contact Number:</label>
+    	<input type="text" id="contact-no" name="contact-no" required pattern="[0-9]{10}" maxlength="10"><br><br>
+
+    	<label for="state">State:</label>
+    	<select id="state" name="state">
+      	<!-- Options for states -->
+      	<option value="" disabled selected>Select State</option>
+      	<option value="Maharastra">Maharastra</option>
+      	<option value="Karnataka">Karnataka</option>
+      	<!-- Add more states as needed -->
+    	</select>
+
+    	<label for="city">City:</label>
+    	<select id="city" name="city">
+    	<option value="" disabled selected>Select City</option>
+      	<!-- Options for cities -->
+      	<option value="Sangli">Sangli</option>
+      	<option value="Ichalkaranji">Ichalkaranji</option>
+		<option value="Kolhapur">Kolhapur</option>
+		<option value="Satara">Satara</option> 
+		<option value="Pune">Pune</option>
+		<option value="Hubli">Hubli</option>
+		<option value="Bengalore">Bengalore</option>     	
+      	      	<!-- Add more cities as needed -->
+    	</select><br><br>
+
+    	<label for="department" >Department:</label>
+    	<select id="department" name="department" >
+    	<option value="" disabled selected>Select Department</option>
+      	<!-- Options for departments -->
+      	<option value="Computer Science Engineering">Computer Science Engineering</option>
+          <option value="Computer Science Engineering(AIML)">Computer Science Engineering(AIML)</option>
+          <option value="Computer Science Engineering(AIDS)">Computer Science Engineering(AIDS)</option>
+          <option value="Electronics Engineering">Electronics Engineering</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+      	<!-- Add more departments as needed -->
+    	</select><br><br>
+
+    	<!-- Backend -->
+
+    	<label for="pwd">Password:</label>
+    	<input type="password" id="pwd" name="pwd" required><br><br>
+    
+        <!-- Other fields can be added as needed -->
+
+        <button type="submit" class="button">Add Faculty</button>
+      </form>
+    </div>
+
+
+			<div id='editFormContainer' class='editFormContainer' style='display:none;'>
+            <form action='EditAlumniServlet' method='post' class='editForm' enctype='multipart/form-data'>            
+            
+			Profile:<input type="file" id="existingProfilePath1" name="existingProfilePath1" >
+			Email:<input type='email' id='mailId1' name='mailId1' /><br/>
+            First Name: <input type='text' id='firstName1' name='firstName1'>
+            Middle Name: <input type='text' id='middleName1' name='middleName1'><br>
+            Last Name: <input type='text' id='lastName1' name='lastName1'><br/>
+            
+		    Department:<select id="department1" name="department1" >
+      		<!-- Options for departments -->
+      		<option value="Computer Science Engineering">Computer Science Engineering</option>
+          	<option value="Computer Science Engineering(AIML)">Computer Science Engineering(AIML)</option>
+          	<option value="Computer Science Engineering(AIDS)">Computer Science Engineering(AIDS)</option>
+          	<option value="Electronics Engineering">Electronics Engineering</option>
+          	<option value="Mechanical Engineering">Mechanical Engineering</option>
+          	<option value="Civil Engineering">Civil Engineering</option>
+      		<!-- Add more departments as needed -->
+    		</select>           
+    		
+    		Date of Birth: <input type="date" id="dob1" name="dob1"><br>
+    		Contact No: <input type='text' id='contactNo1' name='contactNo1'><br/>
+            State: <select id="State1" name="State1">
+      		<!-- Options for states -->
+      		<option value="Maharastra">Maharastra</option>
+      		<option value="Karnataka">Karnataka</option>
+      		<!-- Add more states as needed -->
+    		</select>
+    		
+            City:<select id="City1" name="City1">
+      		<!-- Options for cities -->
+      		<option value="Sangli">Sangli</option>
+      		<option value="Ichalkaranji">Ichalkaranji</option>
+			<option value="Kolhapur">Kolhapur</option>
+			<option value="Satara">Satara</option> 
+			<option value="Pune">Pune</option>
+			<option value="Hubli">Hubli</option>
+			<option value="Bengalore">Bengalore</option>
+      		<!-- Add more cities as needed -->
+    		</select><br><br>
+            
+            Passout Year:<select id="passout-year1" name="passout-year1">
+      		<!-- Options for passout years -->
+      		<option value="2018-2019">2018-2019</option>
+      		<option value="2019-2020">2019-2020</option>
+   	  		<option value="2020-2021">2020-2021</option>
+      		<option value="2021-2022">2021-2022</option>
+      		<!-- Add more years as needed -->
+    		</select><br>
+            
+            Current Working Field:<input type="text" id="current-working-field1" name="current-working-field1">
+            
+            Brief:<textarea id="brief1" name="brief1" rows="4"></textarea><br><br>
+            
+            LinkedIn Profile:<input type="text" id="linkedin-profile1" name="linkedin-profile1"><br>
+
+            <!-- Hidden fields for mailId and existing profile/PDF paths -->
+		    Resume1:<input type="file" id="existingResume1Path1" name="existingResume1Path1"><br>
+            Resume2:<input type="file" id="existingResume2Path1" name="existingResume2Path1"><br>
+            
+            <input type='submit' value='Save' />
+            <button type='button' onclick='hideEditFormAlumni()'>Cancel</button>
+            </form>
+            </div>
+            
+			<div id='editFormContainer1' class='editFormContainer1' style='display:none;'>
+            <form action='EditStudentServlet' method='post' class='editForm' enctype='multipart/form-data'>
+            
+			Profile: <input type="file" id="existingProfilePath2" name="existingProfilePath2" accept="image/*">
+						
+			Email:<input type='email' id='mailId2' name='mailId2' /><br/>
+            First Name: <input type='text' id='firstName2' name='firstName2'>
+            Middle Name: <input type='text' id='middleName2' name='middleName2'><br>
+            Last Name: <input type='text' id='lastName2' name='lastName2'><br/>
+            
+		    Department:<select id="department2" name="department2" >
+      		<!-- Options for departments -->
+      		<option value="Computer Science Engineering">Computer Science Engineering</option>
+          	<option value="Computer Science Engineering(AIML)">Computer Science Engineering(AIML)</option>
+          	<option value="Computer Science Engineering(AIDS)">Computer Science Engineering(AIDS)</option>
+          	<option value="Electronics Engineering">Electronics Engineering</option>
+          	<option value="Mechanical Engineering">Mechanical Engineering</option>
+          	<option value="Civil Engineering">Civil Engineering</option>
+      		<!-- Add more departments as needed -->
+    		</select>           
+    		
+    		Date of Birth: <input type="date" id="dob2" name="dob2"><br>
+    		Contact No: <input type='text' id='contactNo2' name='contactNo2'>
+            State: <select id="State2" name="State2">
+      		<!-- Options for states -->
+      		<option value="Maharastra">Maharastra</option>
+      		<option value="Karnataka">Karnataka</option>
+      		<!-- Add more states as needed -->
+    		</select>
+    		
+            City:<select id="City2" name="City2">
+      		<!-- Options for cities -->
+      		<option value="Sangli">Sangli</option>
+      		<option value="Ichalkaranji">Ichalkaranji</option>
+			<option value="Kolhapur">Kolhapur</option>
+			<option value="Satara">Satara</option> 
+			<option value="Pune">Pune</option>
+			<option value="Hubli">Hubli</option>
+			<option value="Bengalore">Bengalore</option>
+      		<!-- Add more cities as needed -->
+    		</select><br><br>
+            PRN: <input type='text' id='prn2' name='prn2'>            
+            Passout Year:<select id="passout-year2" name="passout-year2">
+      		<!-- Options for passout years -->
+      		<option value="2022-2023">2022-2023</option>
+      		<option value="2023-2024">2023-2024</option>
+      		<option value="2024-2025">2024-2025</option>
+      		<option value="2025-2026">2025-2026</option> 
+      		<!-- Add more years as needed -->
+    		</select><br>
+                                    
+            LinkedIn Profile:<input type="text" id="linkedin-profile2" name="linkedin-profile2"><br>
+            <input type='submit' value='Save' />
+            <button type='button' onclick='hideEditFormStudent()'>Cancel</button>
+            </form>
+            </div>
+            
+            
+            
+            <div id='editFormContainer2' class='editFormContainer2' style='display:none;'>
+            <form action='EditFacultyServlet' method='post' class='editForm2' enctype='multipart/form-data'>
+            
+			Profile: <input type="file" id="existingProfilePath3" name="existingProfilePath3" accept="image/*">
+						
+			Email:<input type='email' id='mailId3' name='mailId3' /><br/>
+            First Name: <input type='text' id='firstName3' name='firstName3'>
+            Middle Name: <input type='text' id='middleName3' name='middleName3'><br>
+            Last Name: <input type='text' id='lastName3' name='lastName3'><br/>
+            
+		    Department:<select id="department3" name="department3" >
+      		<!-- Options for departments -->
+      		<option value="Computer Science Engineering">Computer Science Engineering</option>
+          	<option value="Computer Science Engineering(AIML)">Computer Science Engineering(AIML)</option>
+          	<option value="Computer Science Engineering(AIDS)">Computer Science Engineering(AIDS)</option>
+          	<option value="Electronics Engineering">Electronics Engineering</option>
+          	<option value="Mechanical Engineering">Mechanical Engineering</option>
+          	<option value="Civil Engineering">Civil Engineering</option>
+      		<!-- Add more departments as needed -->
+    		</select>           
+    		
+            State: <select id="State3" name="State3">
+      		<!-- Options for states -->
+      		<option value="Maharastra">Maharastra</option>
+      		<option value="Karnataka">Karnataka</option>
+      		<!-- Add more states as needed -->
+    		</select>
+    		
+            City:<select id="City3" name="City3">
+      		<!-- Options for cities -->
+      		<option value="Sangli">Sangli</option>
+      		<option value="Ichalkaranji">Ichalkaranji</option>
+			<option value="Kolhapur">Kolhapur</option>
+			<option value="Satara">Satara</option> 
+			<option value="Pune">Pune</option>
+			<option value="Hubli">Hubli</option>
+			<option value="Bengalore">Bengalore</option>
+      		<!-- Add more cities as needed -->
+    		</select><br><br>
+           
+                                    
+            <input type='submit' value='Save' />
+            <button type='button' onclick='hideEditFormFaculty()'>Cancel</button>
+            </form>
+            </div>
+            
+  </div>
+</div>
+
+<script>
+function displayContent(panelId) 
+{
+    var contentContainers = document.querySelectorAll('.right-panel > div');
+    contentContainers.forEach(function(container) {
+        container.style.display = 'none';
+    });
+    var selectedContainer = document.getElementById(panelId + '-content');
+    selectedContainer.style.display = 'block';
+    // Reset dropdown values
+    var dropdowns = selectedContainer.querySelectorAll('select');
+    dropdowns.forEach(function(dropdown) 
+    		{
+        dropdown.selectedIndex = 0;
+    });
+    // Hide search elements initially
+    var searchBox = selectedContainer.querySelector('.search-box');
+    var button = selectedContainer.querySelector('.button');
+    searchBox.style.display = 'none';
+    button.style.display = 'none';
+
+    if (panelId === 'alumni-list') 
+    {
+    	searchBox.style.display = "block";
+        button.style.display = "block";
+        loadAlumniList();
+    } 
+    else if (panelId === 'student-list') 
+    {
+    	searchBox.style.display = "block";
+        button.style.display = "block";
+        loadStudentList();
+    } 
+    else if (panelId === 'faculty-list') 
+    {
+    	searchBox.style.display = 'block';
+        button.style.display = 'block';
+        loadFacultyList();
+    } 
+    else if (panelId === 'add-student') 
+    { // Handle the add-student case
+        searchBox.style.display = 'block';
+        button.style.display = 'block';
+    }
+    else if (panelId === 'add-alumni') 
+    { // Handle the add-student case
+        searchBox.style.display = 'block';
+        button.style.display = 'block';
+    }
+}
+
+function bulkUpload() 
+{
+    var form = document.getElementById('uploadForm');
+    var formData = new FormData(form);
+
+    fetch('BulkUploadStudentServlet', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data); // Show response message
+        form.reset();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error uploading file.');
+    });
+}
+
+function bulkUpload1() 
+{
+    var form = document.getElementById('uploadForm1');
+    var formData = new FormData(form);
+
+    fetch('BulkUploadServlet', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data); // Show response message
+        form.reset();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error uploading file.');
+    });
+}
+
+
+function bulkUpload2() 
+{
+    var form = document.getElementById('uploadForm2');
+    var formData = new FormData(form);
+
+    fetch('BulkUploadAlumniServlet', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data); // Show response message
+        form.reset();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error uploading file.');
+    });
+}
+
+
+function displayEditForm(mailId, firstName,middleName,lastName,dob,contactNo,state,city,department,passoutYear,currentWorkingField,
+		breif,linkedinProfile,profilePicPath,resume1Path,resume2Path) 
+{
+    // Show the edit form container
+    var editFormContainer = document.getElementById('editFormContainer');
+    editFormContainer.style.display = 'block';
+
+    // Set values in the edit form fields
+    document.getElementById('mailId1').value = mailId;
+    document.getElementById('firstName1').value = firstName;
+    document.getElementById('middleName1').value = middleName;
+    document.getElementById('lastName1').value = lastName;
+    document.getElementById('dob1').value = dob;
+    document.getElementById('contactNo1').value = contactNo;
+    document.getElementById('State1').value = state;
+    document.getElementById('City1').value = city;
+    document.getElementById('department1').value = department;
+    document.getElementById('passout-year1').value = passoutYear;
+    document.getElementById('current-working-field1').value = currentWorkingField;
+    document.getElementById('brief1').value = breif;
+    document.getElementById('linkedin-profile1').value = linkedinProfile;
+    document.getElementById('existingProfilePath1').value = profilePicPath;
+    document.getElementById('existingResume1Path1').value = resume1Path;
+    document.getElementById('existingResume2Path1').value = resume2Path;
+}
+
+function displayStudentEditForm(mailId, firstName,middleName,lastName,dob,contactNo,state,city,department,prn,passoutYear,linkedinProfile,profilePicPath) 
+{
+    // Show the edit form container
+    var editFormContainer1 = document.getElementById('editFormContainer1');
+    editFormContainer1.style.display = 'block';
+    // Set values in the edit form fields
+    document.getElementById('mailId2').value = mailId;
+    document.getElementById('firstName2').value = firstName;
+    document.getElementById('middleName2').value = middleName;
+    document.getElementById('lastName2').value = lastName;
+    document.getElementById('dob2').value = dob;
+    document.getElementById('contactNo2').value = contactNo;
+    document.getElementById('State2').value = state;
+    document.getElementById('City2').value = city;
+    document.getElementById('department2').value= department;
+    document.getElementById('prn2').value= prn;
+    document.getElementById('passout-year2').value = passoutYear;
+    document.getElementById('linkedin-profile2').value = linkedinProfile;
+    document.getElementById('existingProfilePath2').value = profilePicPath;         
+}
+
+function displayFacultyEditForm(mailId, firstName,middleName,lastName,state,city,department,profilePicPath) 
+{
+    // Show the edit form container
+    var editFormContainer1 = document.getElementById('editFormContainer2');
+    editFormContainer1.style.display = 'block';
+    // Set values in the edit form fields
+    document.getElementById('mailId3').value = mailId;
+    document.getElementById('firstName3').value = firstName;
+    document.getElementById('middleName3').value = middleName;
+    document.getElementById('lastName3').value = lastName;
+    document.getElementById('State3').value = state;
+    document.getElementById('City3').value = city;
+    document.getElementById('department3').value= department;
+    var selectedFileName = document.getElementById('selectedFileName');
+    selectedFileName.textContent = profilePicPath;         
+}
+
+
+
+function hideEditFormAlumni() {
+    // Hide the edit form container
+    var editFormContainer = document.getElementById('editFormContainer');
+    editFormContainer.style.display = 'none';
+}
+
+function hideEditFormStudent() {
+    // Hide the edit form container
+    var editFormContainer = document.getElementById('editFormContainer1');
+    editFormContainer.style.display = 'none';
+}
+
+function hideEditFormFaculty() {
+    // Hide the edit form container
+    var editFormContainer = document.getElementById('editFormContainer2');
+    editFormContainer.style.display = 'none';
+}
+
+function deleteStudent(mailId, firstName, middleName, lastName, department)
+{
+    if (confirm("Are you sure you want to delete " + firstName + " " + middleName + " " + lastName + " (" + department + ")?")) 
+    {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'DeleteStudentServlet'; // Change this to your servlet URL
+
+        var inputMailId = document.createElement('input');
+        inputMailId.type = 'hidden';
+        inputMailId.name = 'mailId';
+        inputMailId.value = mailId;
+        
+        form.appendChild(inputMailId);
+        document.body.appendChild(form);
+        
+        form.submit();
+        
+    }
+}
+
+
+function deleteAlumni(mailId, firstName, middleName, lastName, department)
+{
+    if (confirm("Are you sure you want to delete " + firstName + " " + middleName + " " + lastName + " (" + department + ")?")) 
+    {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'DeleteAlumniServlet'; // Change this to your servlet URL
+
+        var inputMailId = document.createElement('input');
+        inputMailId.type = 'hidden';
+        inputMailId.name = 'mailId';
+        inputMailId.value = mailId;
+        
+        form.appendChild(inputMailId);
+        document.body.appendChild(form);
+
+        form.submit();
+    }
+}
+
+function deleteFaculty(mailId, firstName, middleName, lastName, department)
+{
+    if (confirm("Are you sure you want to delete " + firstName + " " + middleName + " " + lastName + " (" + department + ")?")) 
+    {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'DeleteFacultyServlet'; // Change this to your servlet URL
+
+        var inputMailId = document.createElement('input');
+        inputMailId.type = 'hidden';
+        inputMailId.name = 'mailId';
+        inputMailId.value = mailId;
+        
+        form.appendChild(inputMailId);
+        document.body.appendChild(form);
+
+        form.submit();
+    }
+}
+
+
+window.onload = function() 
+{
+    var urlParams = new URLSearchParams(window.location.search);
+    var action = urlParams.get('action');
+    var hash = window.location.hash;
+
+    if (hash === '#student-list-content') 
+    {
+        alert('Update Successfully');
+        displayContent('student-list');
+    } 
+    else if (hash === '#add-student-content') 
+    {
+        // Call a function to scroll to the add-student-content section
+        alert('Student Added Successfully');
+    	displayContent('add-student');
+    }
+    else if (hash === '#add-alumni-content') 
+    {
+    	alert('Alumni added succesfully');
+        // Call a function to scroll to the add-student-content section
+    	displayContent('add-alumni');
+    }
+    else if (hash === '#alumni-list-content') 
+    {
+        alert('Update Successfully');
+        displayContent('alumni-list');
+    }
+    else if (hash === '#add-faculty-content') 
+    {
+    	alert('Faculty added succesfully');
+        // Call a function to scroll to the add-student-content section
+    	displayContent('add-faculty');
+    }
+    else if (hash === '#faculty-list-content') 
+    {
+        alert('Update Successfully');
+        displayContent('faculty-list');
+    }
+}
+	
+/*function showSearch() 
+{
+    var activePanel = document.querySelector('.right-panel > div[style*="display: block"]');
+    var dropdown1 = activePanel.querySelector("#dropdown1");
+    var dropdown2 = activePanel.querySelector("#dropdown2");
+    var searchBox = activePanel.querySelector('.search-box');
+    var button = activePanel.querySelector('.button');
+    if (dropdown1.value !== "Select Department" && dropdown2.value !== "Select Batch") 
+    {
+        searchBox.style.display = "block";
+        button.style.display = "block";
+    } 
+    else 
+    {
+        searchBox.style.display = "none";
+        button.style.display = "none";
+    }
+}*/
+
+function loadAlumniList() {
+    fetch('AlumniListServlet?listType=alumni') // Updated to call AlumniListServlet
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('alumni-list-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error fetching Alumni List:', error));
+}
+
+function loadStudentList() {
+	  fetch('AlumniListServlet?listType=student') // Sending listType parameter
+	    .then(response => response.text())
+	    .then(data => {
+	      document.getElementById('student-list-placeholder').innerHTML = data;
+	    })
+	    .catch(error => console.error('Error fetching Student List:', error));
+}
+
+function searchStudents() {
+	  var department = document.getElementById('dropdown1').value;
+	  var batch = document.getElementById('dropdown2').value;
+	  var searchQuery = document.getElementById('student-search-input').value;
+
+	  var url = `AlumniListServlet?listType=student&department=${encodeURIComponent(department)}&batch=${encodeURIComponent(batch)}&searchQuery=${encodeURIComponent(searchQuery)}`;
+
+	  fetch(url)
+	    .then(response => response.text())
+	    .then(data => {
+	      document.getElementById('student-list-placeholder').innerHTML = data;
+	    })
+	    .catch(error => console.error('Error fetching Student List:', error));
+	}
+
+
+function searchAlumni() {
+	  var department = document.getElementById('dropdown1').value;
+	  var batch = document.getElementById('dropdown2').value;
+	  var searchQuery = document.getElementById('alumni-search-input').value;
+
+	  var url = `AlumniListServlet?listType=alumni&department=${encodeURIComponent(department)}&batch=${encodeURIComponent(batch)}&searchQuery=${encodeURIComponent(searchQuery)}`;
+
+	  fetch(url)
+	    .then(response => response.text())
+	    .then(data => {
+	      document.getElementById('alumni-list-placeholder').innerHTML = data;
+	    })
+	    .catch(error => console.error('Error fetching Alumni List:', error));
+	}
+
+	
+function loadFacultyList() 
+{
+	  fetch('AlumniListServlet?listType=faculty') // Sending listType parameter
+	    .then(response => response.text())
+	    .then(data => {
+	      document.getElementById('faculty-list-placeholder').innerHTML = data;
+	    })
+	    .catch(error => console.error('Error fetching Faculty List:', error));
+}
+
+function searchFaculty() {
+	  var searchQuery = document.getElementById('faculty-search-input').value;
+	  fetch('AlumniListServlet?listType=faculty&searchQuery=' + encodeURIComponent(searchQuery))
+	    .then(response => response.text())
+	    .then(data => {
+	      document.getElementById('faculty-list-placeholder').innerHTML = data;
+	    })
+	    .catch(error => console.error('Error fetching Faculty List:', error));
+}
+
+
+</script>
+</body>
+</html>

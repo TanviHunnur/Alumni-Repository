@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("4.jpeg");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+        
+        .login-container input[type="email"],
+        .login-container input[type="password"],
+        .login-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        .login-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .login-container input[type="submit"]:hover {
+            background-color: grey;
+        }
+
+        /* Style for the Forgot Password link */
+        .forgot-password-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Error and success message styles */
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            color: green;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <form id="loginForm" action="LoginServlet" method="post">
+            <h2>Login</h2>
+            <select id="roleSelect" name="role" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="Student">Student</option>
+                <option value="Alumni">Alumni</option>
+                <option value="Faculty">Faculty</option>
+                <option value="Admin">Admin</option>
+            </select>
+            <input id="emailInput" type="email" name="email" placeholder="Email" disabled required>
+            <input type="password" name="password" placeholder="Password" disabled required>
+            <input type="submit" value="Login">
+            <!-- Forgot Password link -->
+            <!--  <div class="forgot-password-link" onclick="showForgotPasswordForm()">Forgot Password?</div>-->
+        </form>
+
+        <!-- Forgot Password form (initially hidden) -->
+        <form id="forgotPasswordForm" action="ForgotPasswordServlet" method="post" style="display: none;">
+            <h2>Forgot Password</h2>
+            <select id="forgotRoleSelect" name="role" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="Student">Student</option>
+                <option value="Alumni">Alumni</option>
+                <option value="Faculty">Faculty</option>
+                <option value="Admin">Admin</option>
+            </select>
+            <input id="forgotEmailInput" type="email" name="email" placeholder="Email" required>
+            <input type="submit" value="Send Password">
+        </form>
+
+        <!-- Error and success messages -->
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+        <div id="successMessage" class="success-message" style="display: none;"></div>
+    </div>
+    
+    <script>
+        // Disable email and password fields initially
+        document.getElementById("emailInput").disabled = true;
+        document.querySelector('input[name="password"]').disabled = true;
+
+        // Enable email and password fields when a role is selected
+        document.getElementById("roleSelect").addEventListener("change", function() {
+            document.getElementById("emailInput").disabled = false;
+            document.querySelector('input[name="password"]').disabled = false;
+        });
+
+        // Show Forgot Password form and hide Login form
+        function showForgotPasswordForm() {
+            document.getElementById("forgotPasswordForm").style.display = "block";
+            document.getElementById("loginForm").style.display = "none";
+            hideMessages(); // Clear any existing messages
+        }
+
+        // Clear the email input field on page load
+        window.onload = function() {
+            document.getElementById("emailInput").value = "";
+        };
+
+        // Function to display error message
+        function showError(message) {
+            document.getElementById("errorMessage").innerText = message;
+            document.getElementById("errorMessage").style.display = "block";
+        }
+
+        // Function to display success message
+        function showSuccess(message) {
+            document.getElementById("successMessage").innerText = message;
+            document.getElementById("successMessage").style.display = "block";
+        }
+
+        // Function to hide all messages
+        function hideMessages() {
+            document.getElementById("errorMessage").style.display = "none";
+            document.getElementById("successMessage").style.display = "none";
+        }
+    </script>
+</body>
+</html>
